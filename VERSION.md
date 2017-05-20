@@ -1,5 +1,10 @@
 # Version History
 
+# 0.0.2
+
+* created stub mdwebsite python script
+* check arguments passed to script
+
 # 0.0.1
 
 * created git repository
