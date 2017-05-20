@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+
+##
 #	mdwebsite
 #
 #	Purpose:
@@ -11,6 +14,7 @@
 
 import sys
 import logging
+import buildtool
 
 def printHelp():
 	print """\
@@ -28,9 +32,11 @@ if __name__ == "__main__":
 	if len(sys.argv) != 2:
 		printHelp()
 
-	if sys.argv[1] == 'build':
-		print "Build!\n"
-	elif sys.argv[1] == 'deploy':
+	if sys.argv[1] == "build":
+		print "Building!\n"
+		bt = buildtool.Builder()
+		bt.generatePage("./content/index.html", "./templates/FrontPage.html", "./build/index.html")
+	elif sys.argv[1] == "deploy":
 		print "Deploy!\n"
 	else:
 		printHelp()
