@@ -17,7 +17,7 @@ There are two commands supported, `build` and `deploy`. By default both commands
 Runs just the build step of the tool. Useful for ad hoc checks of the output and viewing the rendered website content locally.
 
 ```
-/path/of/mdwebsite> mdwebsite build
+/path/of/mdwebsite> python mdwebsite build
 ```
 
 ### Deploy
@@ -25,7 +25,7 @@ Runs just the build step of the tool. Useful for ad hoc checks of the output and
 Creates an archive of the current version of the website, and replaces the website with the latest built version.
 
 ```
-/path/of/mdwebsite> mdwebsite deploy
+/path/of/mdwebsite> python mdwebsite deploy
 ```
 
 ## Setup
