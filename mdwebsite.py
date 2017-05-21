@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 ##
 #	mdwebsite
@@ -17,14 +17,14 @@ import logging
 import buildtool
 
 def printHelp():
-	print """\
+	print("""\
 
 Usage: mdwebsite [OPTIONS]
 
     -h        Display this usage message
     build     Build the static website to a local output directory
     deploy    Archive existing deployed website, deploy latest build
-"""
+""")
 	sys.exit()
 
 if __name__ == "__main__":
@@ -33,10 +33,11 @@ if __name__ == "__main__":
 		printHelp()
 
 	if sys.argv[1] == "build":
-		print "Building!\n"
+		print("Building!\n")
 		bt = buildtool.Builder()
-		bt.generatePage("./content/index.html", "./templates/FrontPage.html", "./build/index.html")
+		bt.generate_page("./content/index.md", "./templates/FrontPage.html", "./build/index.html")
+		# bt.generate_page("./content/index.html", "./templates/FrontPage.html", "./build/index.html")
 	elif sys.argv[1] == "deploy":
-		print "Deploy!\n"
+		print("Deploy!\n")
 	else:
 		printHelp()
