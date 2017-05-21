@@ -6,6 +6,8 @@
 * switched to python3 for markdown support
 * added markdown
 * converted html snippet file to markdown with meta header
+* read markdown metadata
+* search and replace markdown metadata tags found in template
 
 # 0.0.2
 
