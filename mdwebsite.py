@@ -32,12 +32,13 @@ if __name__ == "__main__":
 	if len(sys.argv) != 2:
 		printHelp()
 
+	logging.basicConfig(level=logging.INFO)
+
 	if sys.argv[1] == "build":
-		print("Building!\n")
+		logging.info("Performing website build")
 		bt = buildtool.Builder()
 		bt.generate_page("./content/index.md", "./templates/FrontPage.html", "./build/index.html")
-		# bt.generate_page("./content/index.html", "./templates/FrontPage.html", "./build/index.html")
 	elif sys.argv[1] == "deploy":
-		print("Deploy!\n")
+		logging.error("Deploy option is not yet implemented")
 	else:
 		printHelp()

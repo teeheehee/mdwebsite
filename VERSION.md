@@ -8,6 +8,7 @@
 * converted html snippet file to markdown with meta header
 * read markdown metadata
 * search and replace markdown metadata tags found in template
+* added support for global search/replace tags that can be overridden by markdown metadata
 
 # 0.0.2
 

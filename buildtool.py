@@ -6,9 +6,26 @@ class Builder:
 	metatags = []
 
 	def __init__(self):
-		self.data = []
 		# TODO: generate global metatag regexes from configuration
-		self.metatags.append(re.compile(r'{{-content-}}', re.IGNORECASE))
+		# Special case: replace all content with generated data
+		pattern = "content"
+		search = re.compile("{{{{-{0}-}}}}".format(pattern), re.IGNORECASE)
+		replacement = ""
+		tag = pattern, search, replacement
+		self.metatags.append(tag)
+		# Global configuration search and replacement
+		pattern = "favicon"
+		search = re.compile("{{{{-{0}-}}}}".format(pattern), re.IGNORECASE)
+		replacement = "favicon.ico"
+		tag = pattern, search, replacement
+		self.metatags.append(tag)
+		# Default but overridable content in markdown metadata
+		pattern = "author"
+		search = re.compile("{{{{-{0}-}}}}".format(pattern), re.IGNORECASE)
+		replacement = "Author Person"
+		tag = pattern, search, replacement
+		self.metatags.append(tag)
+
 		self.md = markdown.Markdown(
 			output_format = "html5",
 			extensions = ['markdown.extensions.meta',
@@ -19,8 +36,8 @@ class Builder:
 				'markdown.extensions.nl2br'])
 
 	def generate_page(self, source, template, destination):
-		logging.info("Building: source %s with template %s: %s",
-			source, template, destination)
+		logging.info("Building: source {0} with template {1}: {2}".format(
+			source, template, destination))
 		# Open all related files
 		s = open(source, 'r')
 		t = open(template, 'r')
@@ -31,16 +48,15 @@ class Builder:
 		# print(self.md.Meta)
 		# Prepare search and replace tags
 		# TODO: how to handle replacement choices for configurable metatags, or are they all special cases?
-		tags = self.convert_metadata_to_tags(self.md.Meta)
-		for tag in self.metatags:
-			newtag = tag, htmlcontent
-			tags.append(newtag)
+		tags = self.prepare_all_tags(self.md.Meta, htmlcontent)
 		# Process template file and write destination content
 		for line in t:
 			for tag in tags:
-				search = tag[0]
-				replacement = tag[1]
+				pattern = tag[0]
+				search = tag[1]
+				replacement = tag[2]
 				if search.search(line):
+					logging.info("Pattern {0} found and replaced".format(pattern))
 					line = search.sub(replacement, line)
 			d.write(line)
 		# Cleanup
@@ -48,11 +64,29 @@ class Builder:
 		t.close()
 		d.close()
 
+	def prepare_all_tags(self, metadata, htmlcontent):
+		# Merge well-known tags from config with overrides from markdown metadata
+		# TODO: well-known tags in configuration, other sources of replacement
+		alltags = self.convert_metadata_to_tags(metadata)
+		for tag in self.metatags:
+			pattern = tag[0]
+			search = tag[1]
+			replacement = tag[2]
+			if pattern in metadata:
+				continue
+			# TODO: other special cases
+			if pattern == "content":
+				newtag = pattern, search, htmlcontent
+				alltags.append(newtag)
+			else:
+				alltags.append(tag)
+		return alltags
+
 	def convert_metadata_to_tags(self, metadata):
 		tags = []
 		for key, replacement in metadata.items():
 			search = re.compile("{{{{-{0}-}}}}".format(key), re.IGNORECASE)
-			tag = search, ", ".join(replacement)
+			tag = key, search, ", ".join(replacement)
 			tags.append(tag)
 		return tags
 
