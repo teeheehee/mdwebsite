@@ -3,6 +3,9 @@
 # 0.0.3
 
 * build tool can generate one file from a template and a source file
+* switched to python3 for markdown support
+* added markdown
+* converted html snippet file to markdown with meta header
 
 # 0.0.2
 
