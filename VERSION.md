@@ -4,11 +4,12 @@
 
 * build tool can generate one file from a template and a source file
 * switched to python3 for markdown support
-* added markdown
+* added markdown (dependancy: markdown)
 * converted html snippet file to markdown with meta header
 * read markdown metadata
 * search and replace markdown metadata tags found in template
 * added support for global search/replace tags that can be overridden by markdown metadata
+* simple reading of search/replace tags in JSON config file (dependancy: json)
 
 # 0.0.2
 

@@ -4,28 +4,18 @@ import re
 
 class Builder:
 	metatags = []
+	config = []
 
-	def __init__(self):
-		# TODO: generate global metatag regexes from configuration
+	def __init__(self, config):
+		# Generate global metatag regexes from configuration
+		self.metatags = self.convert_metadata_to_tags(config.get_all())
 		# Special case: replace all content with generated data
 		pattern = "content"
 		search = re.compile("{{{{-{0}-}}}}".format(pattern), re.IGNORECASE)
 		replacement = ""
 		tag = pattern, search, replacement
 		self.metatags.append(tag)
-		# Global configuration search and replacement
-		pattern = "favicon"
-		search = re.compile("{{{{-{0}-}}}}".format(pattern), re.IGNORECASE)
-		replacement = "favicon.ico"
-		tag = pattern, search, replacement
-		self.metatags.append(tag)
-		# Default but overridable content in markdown metadata
-		pattern = "author"
-		search = re.compile("{{{{-{0}-}}}}".format(pattern), re.IGNORECASE)
-		replacement = "Author Person"
-		tag = pattern, search, replacement
-		self.metatags.append(tag)
-
+		# Prepare markdown renderer
 		self.md = markdown.Markdown(
 			output_format = "html5",
 			extensions = ['markdown.extensions.meta',
@@ -45,7 +35,6 @@ class Builder:
 		# Process MD file
 		content = s.read()
 		htmlcontent = self.md.reset().convert(content)
-		# print(self.md.Meta)
 		# Prepare search and replace tags
 		# TODO: how to handle replacement choices for configurable metatags, or are they all special cases?
 		tags = self.prepare_all_tags(self.md.Meta, htmlcontent)
@@ -86,7 +75,12 @@ class Builder:
 		tags = []
 		for key, replacement in metadata.items():
 			search = re.compile("{{{{-{0}-}}}}".format(key), re.IGNORECASE)
-			tag = key, search, ", ".join(replacement)
+			newreplacement = ""
+			if isinstance(replacement, str):
+				newreplacement = replacement
+			else:
+				newreplacement = ", ".join(replacement)
+			tag = key, search, newreplacement
 			tags.append(tag)
 		return tags
 

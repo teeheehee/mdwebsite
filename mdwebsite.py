@@ -15,6 +15,7 @@
 import sys
 import logging
 import buildtool
+import configtool
 
 def printHelp():
 	print("""\
@@ -33,10 +34,11 @@ if __name__ == "__main__":
 		printHelp()
 
 	logging.basicConfig(level=logging.INFO)
+	config = configtool.Config("config.json")
 
 	if sys.argv[1] == "build":
 		logging.info("Performing website build")
-		bt = buildtool.Builder()
+		bt = buildtool.Builder(config)
 		bt.generate_page("./content/index.md", "./templates/FrontPage.html", "./build/index.html")
 	elif sys.argv[1] == "deploy":
 		logging.error("Deploy option is not yet implemented")
