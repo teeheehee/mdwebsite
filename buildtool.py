@@ -8,7 +8,7 @@ class Builder:
 
 	def __init__(self, config):
 		# Generate global metatag regexes from configuration
-		self.metatags = self.convert_metadata_to_tags(config.get_all())
+		self.metatags = self.convert_metadata_to_tags(config.get('replacements'))
 		# Special case: replace all content with generated data
 		pattern = "content"
 		search = re.compile("{{{{-{0}-}}}}".format(pattern), re.IGNORECASE)

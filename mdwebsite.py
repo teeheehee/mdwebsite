@@ -39,7 +39,10 @@ if __name__ == "__main__":
 	if sys.argv[1] == "build":
 		logging.info("Performing website build")
 		bt = buildtool.Builder(config)
-		bt.generate_page("./content/index.md", "./templates/FrontPage.html", "./build/index.html")
+		contentFile = config.get('content_path') + "index.md"
+		templateFile = config.get('templates_path') + "FrontPage.html"
+		outputFile = config.get('output_path') + "index.html"
+		bt.generate_page(contentFile, templateFile, outputFile)
 	elif sys.argv[1] == "deploy":
 		logging.error("Deploy option is not yet implemented")
 	else:

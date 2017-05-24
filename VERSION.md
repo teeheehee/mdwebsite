@@ -10,6 +10,7 @@
 * search and replace markdown metadata tags found in template
 * added support for global search/replace tags that can be overridden by markdown metadata
 * simple reading of search/replace tags in JSON config file (dependancy: json)
+* some basic configuration options available
 
 # 0.0.2
 

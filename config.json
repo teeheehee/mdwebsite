@@ -1,4 +1,11 @@
 {
-	"author": "John Doe",
-	"favicon": "favicon.ico"
+	"content_path": "./content/",
+	"output_path": "./build/",
+	"templates_path": "./templates/",
+	"content_tag": "content",
+	"read_more_tag": "more",
+	"replacements": {
+		"author": "John Doe",
+		"favicon": "favicon.ico"
+	}
 }
