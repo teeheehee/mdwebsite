@@ -1,5 +1,12 @@
 # Version History
 
+# 0.0.4
+
+* identify files in directory tree
+* copy as-is files
+* handle conversion of multiple markdown files
+* define correct template based on file location and config
+
 # 0.0.3
 
 * build tool can generate one file from a template and a source file
