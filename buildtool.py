@@ -31,6 +31,7 @@ class Builder:
 		# Open all related files
 		s = open(source, 'r')
 		t = open(template, 'r')
+		# DLK TODO: destination path needs to be created
 		d = open(destination, 'w', encoding="utf-8", errors="xmlcharrefreplace")
 		# Process MD file
 		content = s.read()
@@ -60,7 +61,7 @@ class Builder:
 		for tag in self.metatags:
 			pattern = tag[0]
 			search = tag[1]
-			replacement = tag[2]
+			#replacement = tag[2]
 			if pattern in metadata:
 				continue
 			# TODO: other special cases

@@ -2,6 +2,22 @@
 	"content_path": "./content/",
 	"output_path": "./build/",
 	"templates_path": "./templates/",
+
+	"replacement_tags": [
+		{"content_tag": "content"},
+		{"read_more_tag": "more"}
+	],
+
+	"static_copy_content_paths": [
+		"res",
+		"js",
+		"css"
+	],
+
+	"rename_copy_contents_paths": [
+		{"source": "awstats", "destination": "stats"}
+	],
+
 	"content_tag": "content",
 	"read_more_tag": "more",
 	"replacements": {
